@@ -1,0 +1,68 @@
+[
+    {
+        "antecedents": [
+            "SD2"
+        ],
+        "consequents": [
+            "SD1"
+        ],
+        "antecedent support": 0.2947637216380667,
+        "consequent support": 0.44522311793744196,
+        "support": 0.22030171491704328,
+        "confidence": 0.7473840867959541,
+        "lift": 1.6786731341766683,
+        "leverage": 0.089066091714499,
+        "conviction": 2.1961280072425495,
+        "zhangs_metric": 0.573270868045515
+    },
+    {
+        "antecedents": [
+            "higuci"
+        ],
+        "consequents": [
+            "sampen"
+        ],
+        "antecedent support": 0.44630086463447327,
+        "consequent support": 0.699365537560014,
+        "support": 0.32039947033353283,
+        "confidence": 0.7179001783829044,
+        "lift": 1.0265020791381216,
+        "leverage": 0.008272026224945384,
+        "conviction": 1.0657024195075466,
+        "zhangs_metric": 0.04662794417107878
+    },
+    {
+        "antecedents": [
+            "sampen",
+            "SD2"
+        ],
+        "consequents": [
+            "SD1"
+        ],
+        "antecedent support": 0.12250567983340961,
+        "consequent support": 0.44522311793744196,
+        "support": 0.10452518217439458,
+        "confidence": 0.8532272325375773,
+        "lift": 1.9164037044847786,
+        "leverage": 0.04998282143391795,
+        "conviction": 3.779835262727426,
+        "zhangs_metric": 0.544948573871568
+    },
+    {
+        "antecedents": [
+            "SD1",
+            "higuci"
+        ],
+        "consequents": [
+            "sampen"
+        ],
+        "antecedent support": 0.2144743006155071,
+        "consequent support": 0.699365537560014,
+        "support": 0.15334331648112995,
+        "confidence": 0.7149729176925116,
+        "lift": 1.0223164844338049,
+        "leverage": 0.0033473819383577907,
+        "conviction": 1.054757533937285,
+        "zhangs_metric": 0.027789454293067884
+    }
+]

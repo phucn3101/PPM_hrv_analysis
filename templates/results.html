@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HRV Analysis Results</title>
+</head>
+<body>
+    <h1>Apriori Rules</h1>
+    <table border="1">
+        <tr>
+            <th>Antecedents</th>
+            <th>Consequents</th>
+            <th>Support</th>
+            <th>Confidence</th>
+            <th>Lift</th>
+        </tr>
+        {% for rule in apriori_rules %}
+        <tr>
+            <td>{{ rule['antecedents'] }}</td>
+            <td>{{ rule['consequents'] }}</td>
+            <td>{{ rule['support'] }}</td>
+            <td>{{ rule['confidence'] }}</td>
+            <td>{{ rule['lift'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h1>FP-Growth Rules</h1>
+    <table border="1">
+        <tr>
+            <th>Antecedents</th>
+            <th>Consequents</th>
+            <th>Support</th>
+            <th>Confidence</th>
+            <th>Lift</th>
+        </tr>
+        {% for rule in fp_growth_rules %}
+        <tr>
+            <td>{{ rule['antecedents'] }}</td>
+            <td>{{ rule['consequents'] }}</td>
+            <td>{{ rule['support'] }}</td>
+            <td>{{ rule['confidence'] }}</td>
+            <td>{{ rule['lift'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

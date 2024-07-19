@@ -1,28 +1,28 @@
-import pandas as pd
 from mlxtend.frequent_patterns import apriori, association_rules
+import pandas as pd
 
 def load_data(file_path):
-    """
-    Load preprocessed HRV data.
-    """
-    data = pd.read_csv(file_path)
-    return data
+    return pd.read_csv(file_path)
 
-def apriori_basic(data, min_support=0.1, min_confidence=0.5):
-    """
-    Perform basic Apriori algorithm for frequent itemset mining.
-    """
-    frequent_itemsets = apriori(data, min_support=min_support, use_colnames=True)
-    rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=min_confidence)
-    return rules
+def binarize_data(df):
+    return (df > df.mean()).astype(int)
+
+def run_apriori(df):
+    # Apply the Apriori algorithm
+    frequent_itemsets = apriori(df, min_support=0.1, use_colnames=True)
+    
+    # Generate the rules with a minimum confidence of 0.7
+    rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.7)
+    
+    # Convert frozenset to list for JSON serialization
+    rules['antecedents'] = rules['antecedents'].apply(lambda x: list(x))
+    rules['consequents'] = rules['consequents'].apply(lambda x: list(x))
+    
+    return rules.to_dict(orient='records')
 
 if __name__ == "__main__":
-    # Example usage
-    file_path = "../data/processed/preprocessed_rr_intervals.csv"
-    data = load_data(file_path)
-    
-    # Convert data to one-hot encoding format if necessary
-    # Assuming data is already in the right format for simplicity
-    
-    rules = apriori_basic(data)
+    train_data_path = r'C:\Users\NGUYEN\Documents\TDTU\2023 - 2024\DoAn\PPM_hrv_analysis\data\processed\heart_rate_non_linear_features_train_processed.csv'
+    train_df = load_data(train_data_path)
+    df_binarized = binarize_data(train_df[['SD1', 'SD2', 'sampen', 'higuci']])
+    rules = run_apriori(df_binarized)
     print(rules)

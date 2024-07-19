@@ -1,42 +1,35 @@
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 
 def load_data(file_path):
-    """
-    Load HRV data from a CSV file.
-    """
-    data = pd.read_csv(file_path)
-    return data
+    return pd.read_csv(file_path)
 
-def clean_data(data):
-    """
-    Clean the HRV data by removing or imputing missing values.
-    """
-    data = data.dropna()  # Simple drop NA for now; consider imputation for advanced preprocessing
-    return data
-
-def extract_rr_intervals(data):
-    """
-    Extract RR intervals from HRV data. Assume the column name is 'RR_intervals'.
-    """
-    rr_intervals = data['RR_intervals']
-    return rr_intervals
-
-def preprocess_rr_intervals(rr_intervals):
-    """
-    Preprocess RR intervals: e.g., normalization, outlier removal.
-    """
-    rr_intervals = rr_intervals[rr_intervals.between(rr_intervals.quantile(.05), rr_intervals.quantile(.95))]
-    return rr_intervals
+def preprocess_data(df):
+    # Exclude UUID column from numerical processing
+    numerical_cols = ['SD1', 'SD2', 'sampen', 'higuci']
+    df[numerical_cols] = df[numerical_cols].apply(pd.to_numeric, errors='coerce')
+    
+    # Handle missing values
+    df.fillna(method='ffill', inplace=True)
+    
+    # Normalize the features
+    scaler = StandardScaler()
+    df[numerical_cols] = scaler.fit_transform(df[numerical_cols])
+    
+    return df
 
 if __name__ == "__main__":
-    # Example usage
-    file_path = "../data/raw/hrv_data.csv"
-    data = load_data(file_path)
-    data = clean_data(data)
-    rr_intervals = extract_rr_intervals(data)
-    rr_intervals = preprocess_rr_intervals(rr_intervals)
-    
-    # Save preprocessed data
-    preprocessed_data_path = "../data/processed/preprocessed_rr_intervals.csv"
-    rr_intervals.to_csv(preprocessed_data_path, index=False)
+    train_data_path = r'C:\Users\NGUYEN\Documents\TDTU\2023 - 2024\DoAn\PPM_hrv_analysis\data\raw\heart_rate_non_linear_features_train.csv'
+    test_data_path = r'C:\Users\NGUYEN\Documents\TDTU\2023 - 2024\DoAn\PPM_hrv_analysis\data\raw\heart_rate_non_linear_features_test.csv'
+
+    train_df = load_data(train_data_path)
+    test_df = load_data(test_data_path)
+
+    train_df = preprocess_data(train_df)
+    test_df = preprocess_data(test_df)
+
+    train_df.to_csv('data/processed/heart_rate_non_linear_features_train_processed.csv', index=False)
+    test_df.to_csv('data/processed/heart_rate_non_linear_features_test_processed.csv', index=False)
+
+    print("Data preprocessing completed.")
