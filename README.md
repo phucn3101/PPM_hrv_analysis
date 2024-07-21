@@ -6,7 +6,7 @@ Dataset was obtained from https://www.kaggle.com/datasets/saurav9786/heart-rate-
 
 ## Installation
 Install all requirement via `pip install -r requirements.txt`.  
-Download and unzip dataset into `data/raw`.
-Run `python preprocess.py` to generate processed data.
-Unzip and run using `python app.py` in the terminal.
-Once running, proceed to upload dataset in `data/processed` to display the result.
+Download and unzip dataset into `data/raw`.  
+Run `python preprocess.py` to generate processed data.  
+Unzip and run using `python app.py` in the terminal.  
+Once running, proceed to upload dataset in `data/processed` to display the result.  
