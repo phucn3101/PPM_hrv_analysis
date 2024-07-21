@@ -3,45 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>HRV Analysis Results</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Apriori Rules</h1>
-    <table border="1">
-        <tr>
-            <th>Antecedents</th>
-            <th>Consequents</th>
-            <th>Support</th>
-            <th>Confidence</th>
-            <th>Lift</th>
-        </tr>
-        {% for rule in apriori_rules %}
-        <tr>
-            <td>{{ rule['antecedents'] }}</td>
-            <td>{{ rule['consequents'] }}</td>
-            <td>{{ rule['support'] }}</td>
-            <td>{{ rule['confidence'] }}</td>
-            <td>{{ rule['lift'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <h1>FP-Growth Rules</h1>
-    <table border="1">
-        <tr>
-            <th>Antecedents</th>
-            <th>Consequents</th>
-            <th>Support</th>
-            <th>Confidence</th>
-            <th>Lift</th>
-        </tr>
-        {% for rule in fp_growth_rules %}
-        <tr>
-            <td>{{ rule['antecedents'] }}</td>
-            <td>{{ rule['consequents'] }}</td>
-            <td>{{ rule['support'] }}</td>
-            <td>{{ rule['confidence'] }}</td>
-            <td>{{ rule['lift'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="container mt-5">
+        <h1 class="text-center">HRV Analysis Results</h1>
+        
+        <h2 class="mt-4">Apriori Rules</h2>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Antecedents</th>
+                    <th>Consequents</th>
+                    <th>Support</th>
+                    <th>Confidence</th>
+                    <th>Lift</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rule in apriori_rules %}
+                <tr>
+                    <td>{{ rule['antecedents'] }}</td>
+                    <td>{{ rule['consequents'] }}</td>
+                    <td>{{ rule['support'] }}</td>
+                    <td>{{ rule['confidence'] }}</td>
+                    <td>{{ rule['lift'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <img src="{{ url_for('static', filename='Apriori_rules.png') }}" alt="Apriori Rules" class="img-fluid mt-4">
+
+        <h2 class="mt-5">FP-Growth Rules</h2>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Antecedents</th>
+                    <th>Consequents</th>
+                    <th>Support</th>
+                    <th>Confidence</th>
+                    <th>Lift</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rule in fp_growth_rules %}
+                <tr>
+                    <td>{{ rule['antecedents'] }}</td>
+                    <td>{{ rule['consequents'] }}</td>
+                    <td>{{ rule['support'] }}</td>
+                    <td>{{ rule['confidence'] }}</td>
+                    <td>{{ rule['lift'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <img src="{{ url_for('static', filename='FP-Growth_rules.png') }}" alt="FP-Growth Rules" class="img-fluid mt-4">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

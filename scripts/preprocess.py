@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
+import os
 
 def load_data(file_path):
     return pd.read_csv(file_path)
@@ -20,8 +21,11 @@ def preprocess_data(df):
     return df
 
 if __name__ == "__main__":
-    train_data_path = r'C:\Users\NGUYEN\Documents\TDTU\2023 - 2024\DoAn\PPM_hrv_analysis\data\raw\heart_rate_non_linear_features_train.csv'
-    test_data_path = r'C:\Users\NGUYEN\Documents\TDTU\2023 - 2024\DoAn\PPM_hrv_analysis\data\raw\heart_rate_non_linear_features_test.csv'
+    # train_data_path = r'C:\Users\NGUYEN\Documents\TDTU\2023 - 2024\DoAn\PPM_hrv_analysis\data\raw\heart_rate_non_linear_features_train.csv'
+    # test_data_path = r'C:\Users\NGUYEN\Documents\TDTU\2023 - 2024\DoAn\PPM_hrv_analysis\data\raw\heart_rate_non_linear_features_test.csv'
+
+    train_data_path = os.path.join('data', 'raw', 'heart_rate_non_linear_features_train.csv')
+    test_data_path = os.path.join('data', 'raw', 'heart_rate_non_linear_features_test.csv')
 
     train_df = load_data(train_data_path)
     test_df = load_data(test_data_path)

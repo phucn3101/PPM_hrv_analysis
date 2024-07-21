@@ -1,18 +1,19 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, url_for
 import pandas as pd
 import logging
-from scripts.preprocess import preprocess_data, load_data
+from scripts.preprocess import preprocess_data
 from scripts.apriori_basic import run_apriori
 from scripts.fpgrowth_basic import run_fp_growth
+from scripts.visualize import plot_rules
 import time
 import json
+import os
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('index.html')
-
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -35,11 +36,13 @@ def upload_file():
 
             apriori_start = time.time()
             apriori_rules = run_apriori(df_binarized)
+            plot_rules(apriori_rules, 'Apriori')
             apriori_end = time.time()
             logging.info(f"Apriori algorithm completed in {apriori_end - apriori_start} seconds.")
 
             fp_growth_start = time.time()
             fp_growth_rules = run_fp_growth(df_binarized)
+            plot_rules(fp_growth_rules, 'FP-Growth')
             fp_growth_end = time.time()
             logging.info(f"FP-Growth algorithm completed in {fp_growth_end - fp_growth_start} seconds.")
 
@@ -47,21 +50,6 @@ def upload_file():
             logging.info(f"Total processing time: {end_time - start_time} seconds.")
 
             return render_template('results.html', apriori_rules=apriori_rules, fp_growth_rules=fp_growth_rules)
-
-            # Print results
-            print("Apriori Rules:")
-            print(json.dumps(apriori_rules, indent=4))
-            
-            print("FP-Growth Rules:")
-            print(json.dumps(fp_growth_rules, indent=4))
-
-            # Save results to a file
-            with open('apriori_rules.json', 'w') as f:
-                json.dump(apriori_rules, f, indent=4)
-            with open('fp_growth_rules.json', 'w') as f:
-                json.dump(fp_growth_rules, f, indent=4)
-
-            return "File processed and results saved."
 
         except Exception as e:
             logging.error(f"Error processing file: {e}")
