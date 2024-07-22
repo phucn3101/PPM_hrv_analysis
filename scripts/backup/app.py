@@ -32,20 +32,13 @@ def upload_file():
             df_processed = preprocess_data(df)
             logging.info("Data preprocessing completed.")
 
-            # Ensure the DataFrame has the required columns for frequency domain feature extraction
-            if 'SD1' not in df_processed.columns or 'SD2' not in df_processed.columns:
-                raise ValueError("Input DataFrame must contain 'SD1' and 'SD2' columns")
-
             # Calculate frequency domain features
             frequency_features = get_frequency_domain_features(df_processed)
             logging.info("Frequency domain feature extraction completed.")
 
-            # df_binarized = (df_processed.drop(columns=['uuid', 'condition', 'datasetId']) > df_processed.drop(columns=['uuid', 'condition', 'datasetId']).mean()).astype(int)
-            # logging.info("Data binarization completed.")
-
-            df_binarized = (df_processed[['SD1', 'SD2', 'sampen', 'higuci']] > df_processed[['SD1', 'SD2', 'sampen', 'higuci']].mean()).astype(int)
+            df_binarized = (df_processed.drop(columns=['uuid', 'condition', 'datasetId']) > df_processed.drop(columns=['uuid', 'condition', 'datasetId']).mean()).astype(int)
             logging.info("Data binarization completed.")
-            
+
             apriori_start = time.time()
             apriori_rules = run_apriori(df_binarized)
             plot_rules(apriori_rules, 'Apriori')
