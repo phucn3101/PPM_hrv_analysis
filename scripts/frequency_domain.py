@@ -1,29 +1,24 @@
 import pandas as pd
 import numpy as np
-from scipy.signal import welch
 
-def calculate_psd(signal, fs=4):
-    f, Pxx = welch(signal, fs=fs)
-    return f, Pxx
+def get_frequency_domain_features(df):
+    frequency_domain_features = []
 
-def get_frequency_domain_features(df, fs=4):
-    features = []
-    for index, row in df.iterrows():
-        print(f"Processing row {index} with UUID: {row['uuid']}")  # Debugging line
-        combined_signal = np.array([row['SD1'], row['SD2']])
-        f, Pxx = calculate_psd(combined_signal, fs)
-        lf_power = np.sum(Pxx[(f >= 0.04) & (f <= 0.15)])
-        hf_power = np.sum(Pxx[(f >= 0.15) & (f <= 0.4)])
-        features.append({
-            'uuid': row['uuid'],
-            'LF': lf_power,
-            'HF': hf_power,
-            'LF_HF_ratio': lf_power / hf_power if hf_power != 0 else np.nan
+    for _, row in df.iterrows():
+        uuid = row['uuid']
+        sd1 = row['SD1']
+        sd2 = row['SD2']
+        
+        # Example frequency domain features (using SD1 and SD2 as placeholders)
+        lf = sd1  # Placeholder for Low Frequency component
+        hf = sd2  # Placeholder for High Frequency component
+        lf_hf_ratio = lf / hf if hf != 0 else np.nan  # LF/HF Ratio
+
+        frequency_domain_features.append({
+            'UUID': uuid,
+            'LF': lf,
+            'HF': hf,
+            'LF/HF Ratio': lf_hf_ratio
         })
-    print(features)  # Debugging line
-    return pd.DataFrame(features)
-
-if __name__ == "__main__":
-    df = pd.read_csv('data/raw/heart_rate_non_linear_features_train.csv')
-    frequency_features = get_frequency_domain_features(df)
-    print(frequency_features)
+    
+    return frequency_domain_features
