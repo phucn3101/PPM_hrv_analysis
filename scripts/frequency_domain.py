@@ -1,24 +1,7 @@
 import pandas as pd
-import numpy as np
 
-def get_frequency_domain_features(df):
-    frequency_domain_features = []
+def get_frequency_domain_features(df): # uuid,VLF,VLF_PCT,LF,LF_PCT,LF_NU,HF,HF_PCT,HF_NU,TP,LF_HF,HF_LF
+    frequency_cols = ['uuid', 'VLF', 'VLF_PCT', 'LF', 'LF_PCT', 'LF_NU', 'HF' , 'HF_PCT','HF_NU','TP','LF_HF', 'HF_LF']
 
-    for _, row in df.iterrows():
-        uuid = row['uuid']
-        sd1 = row['SD1']
-        sd2 = row['SD2']
-        
-        # Example frequency domain features (using SD1 and SD2 as placeholders)
-        lf = sd1  # Placeholder for Low Frequency component
-        hf = sd2  # Placeholder for High Frequency component
-        lf_hf_ratio = lf / hf if hf != 0 else np.nan  # LF/HF Ratio
-
-        frequency_domain_features.append({
-            'UUID': uuid,
-            'LF': lf,
-            'HF': hf,
-            'LF/HF Ratio': lf_hf_ratio
-        })
-    
-    return frequency_domain_features
+    frequency_features = df[frequency_cols].to_dict(orient='records')
+    return frequency_features

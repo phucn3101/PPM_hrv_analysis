@@ -7,8 +7,19 @@ import os
 def load_data(file_path):
     return pd.read_csv(file_path)
 
-def binarize_data(df):
-    return (df > df.mean()).astype(int)
+def binarize_data(df, dataset_type):
+    if dataset_type == 'non_linear':
+        cols = ['SD1', 'SD2', 'sampen', 'higuci']
+    elif dataset_type == 'frequency':
+        cols = ['VLF', 'VLF_PCT', 'LF', 'LF_PCT', 'LF_NU', 'HF', 'HF_PCT', 'HF_NU', 'TP', 'LF_HF', 'HF_LF']
+    elif dataset_type == 'time':
+        cols = ['MEAN_RR', 'MEDIAN_RR', 'SDRR', 'RMSSD', 'SDSD', 'SDRR_RMSSD', 'pNN25', 'pNN50', 'KURT', 'SKEW',
+                'MEAN_REL_RR', 'MEDIAN_REL_RR', 'SDRR_REL_RR', 'RMSSD_REL_RR', 'SDSD_REL_RR', 'SDRR_RMSSD_REL_RR',
+                'KURT_REL_RR', 'SKEW_REL_RR']
+    else:
+        raise ValueError("Unknown dataset type")
+    
+    return (df[cols] > df[cols].mean()).astype(int)
 
 def run_apriori(df):
     # Apply the Apriori algorithm
@@ -32,12 +43,3 @@ def plot_rules(rules, filename):
     plt.grid(True)
     plt.savefig(filename)
     plt.close()
-
-if __name__ == "__main__":
-    # train_data_path = r'C:\Users\NGUYEN\Documents\TDTU\2023 - 2024\DoAn\PPM_hrv_analysis\data\processed\heart_rate_non_linear_features_train_processed.csv'
-    train_data_path = os.path.join('data', 'processed', 'heart_rate_non_linear_features_train_processed.csv')
-    train_df = load_data(train_data_path)
-    df_binarized = binarize_data(train_df[['SD1', 'SD2', 'sampen', 'higuci']])
-    rules = run_apriori(df_binarized)
-    plot_rules(rules, 'Apriori Basic')
-    print(rules)

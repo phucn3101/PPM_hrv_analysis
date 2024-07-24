@@ -9,7 +9,6 @@ def get_periodic_patterns(df):
         sd1 = row['SD1']
         sd2 = row['SD2']
 
-        # Simple periodic pattern detection (example approach)
         patterns = {}
         pattern = (sd1, sd2)
         if pattern in patterns:

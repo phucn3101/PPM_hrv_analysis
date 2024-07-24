@@ -11,8 +11,14 @@
         <h1>HRV Analysis</h1>
         <form action="/upload" method="post" enctype="multipart/form-data">
             <input type="file" name="file">
+            <select name="dataset_type">
+                <option value="non_linear">Non-Linear Features</option>
+                <option value="frequency_domain">Frequency Domain Features</option>
+                <option value="time_domain">Time Domain Features</option>
+            </select>
             <input type="submit" value="Upload">
         </form>
+        
     </div>
 </body>
 </html>

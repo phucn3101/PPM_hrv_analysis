@@ -32,14 +32,3 @@ def plot_rules(rules, filename):
     plt.grid(True)
     plt.savefig(filename)
     plt.close()
-
-
-if __name__ == "__main__":
-    # train_data_path = '../data/processed/heart_rate_non_linear_features_train_processed.csv'
-    train_data_path = os.path.join('data', 'processed', 'heart_rate_non_linear_features_train_processed.csv')
-    train_df = load_data(train_data_path)
-    df_binarized = binarize_data(train_df[['SD1', 'SD2', 'sampen', 'higuci']])
-    rules = run_fp_growth(df_binarized)
-    plot_rules(rules, 'FP-Growth Basic')
-    print(rules)
-    

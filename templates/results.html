@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,6 @@
         <h1>HRV Analysis Results</h1>
         
         <div class="nav-links">
-            <!-- <a href="#apriori">Apriori Rules</a>
-            <a href="#fp-growth">FP-Growth Rules</a> -->
             <a href="#frequency-domain">Frequency Domain Features</a>
             <a href="#periodic-patterns">Periodic Patterns</a>
             <a href="#time-domain">Time Domain Features</a>
@@ -89,9 +87,6 @@
             </tr>
             {% for pattern in periodic_patterns %}
             <tr>
-                <!-- <td>{{ pattern['UUID'] }}</td>
-                <td>{{ pattern['Pattern'] }}</td>
-                <td>{{ pattern['Frequency'] }}</td> -->
 
                 <td>{{ pattern.UUID }}</td>
                 <td>{{ pattern.Pattern }}</td>
@@ -142,137 +137,57 @@
         }
     </script>
 </body>
-</html>
+</html> -->
 
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HRV Analysis Results</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>HRV Analysis Results</h1>
 
-        <h2>Apriori Rules</h2>
+        <div class="nav-links">
+            <a href="#apriori">Apriori Rules</a>
+            <a href="#fp-growth">FP-Growth Rules</a>
+
+            {% if frequency_features %}
+            <a href="#frequency-domain">Frequency Domain Features</a>
+            {% endif %}
+
+            {% if periodic_patterns %}
+            <a href="#periodic-patterns">Periodic Patterns</a>
+            {% endif %}
+
+            {% if time_features %}
+            <a href="#time-domain">Time Domain Features</a>
+            {% endif %}
+
+        </div>
+        <a name="apriori"></a>
+        <h2 id="apriori">Apriori Rules</h2>
+        <img src="{{ url_for('static', filename='Apriori_non_linear_rules.png') }}" alt="Apriori Rules Plot">
         <table>
-            <tr>
-                <th>Antecedents</th>
-                <th>Consequents</th>
-                <th>Support</th>
-                <th>Confidence</th>
-                <th>Lift</th>
-            </tr>
-            {% for rule in apriori_rules %}
-            <tr>
-                <td>{{ rule['antecedents'] }}</td>
-                <td>{{ rule['consequents'] }}</td>
-                <td>{{ rule['support'] }}</td>
-                <td>{{ rule['confidence'] }}</td>
-                <td>{{ rule['lift'] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <img src="{{ url_for('static', filename='Apriori_rules.png') }}" alt="Apriori Rules">
-
-        <h2>FP-Growth Rules</h2>
-        <table>
-            <tr>
-                <th>Antecedents</th>
-                <th>Consequents</th>
-                <th>Support</th>
-                <th>Confidence</th>
-                <th>Lift</th>
-            </tr>
-            {% for rule in fp_growth_rules %}
-            <tr>
-                <td>{{ rule['antecedents'] }}</td>
-                <td>{{ rule['consequents'] }}</td>
-                <td>{{ rule['support'] }}</td>
-                <td>{{ rule['confidence'] }}</td>
-                <td>{{ rule['lift'] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <img src="{{ url_for('static', filename='FP-Growth_rules.png') }}" alt="FP-Growth Rules">
-
-        <h2>Frequency Domain Features</h2>
-        <table>
-            <tr>
-                <th>UUID</th>
-                <th>LF</th>
-                <th>HF</th>
-                <th>LF/HF Ratio</th>
-            </tr>
-            {% for feature in frequency_features %}
-            <tr>
-                <td>{{ feature['uuid'] }}</td>
-                <td>{{ feature['LF'] }}</td>
-                <td>{{ feature['HF'] }}</td>
-                <td>{{ feature['LF_HF_ratio'] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-
-        <h2>Periodic Patterns</h2>
-        <table>
-            <tr>
-                <th>UUID</th>
-                <th>Pattern</th>
-                <th>Frequency</th>
-            </tr>
-            {% for pattern in periodic_patterns %}
-            <tr>
-                <td>{{ pattern['uuid'] }}</td>
-                <td>{{ pattern['pattern'] }}</td>
-                <td>{{ pattern['frequency'] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-
-        <h2>Time Domain Features</h2>
-        <table>
-            <tr>
-                <th>UUID</th>
-                <th>Mean NN</th>
-                <th>SDNN</th>
-                <th>RMSSD</th>
-                <th>pNN50</th>
-            </tr>
-            {% for feature in time_domain_features %}
-            <tr>
-                <td>{{ feature['uuid'] }}</td>
-                <td>{{ feature['mean_nn'] }}</td>
-                <td>{{ feature['sdnn'] }}</td>
-                <td>{{ feature['rmssd'] }}</td>
-                <td>{{ feature['pnn50'] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-</body>
-</html> -->
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HRV Analysis Results</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1 class="text-center">HRV Analysis Results</h1>
-        
-        <h2 class="mt-4">Apriori Rules</h2>
-        <table class="table table-bordered">
-            <thead class="thead-dark">
+            <thead>
                 <tr>
-                    <th>Antecedents</th>
-                    <th>Consequents</th>
+                    <th>Rule</th>
                     <th>Support</th>
                     <th>Confidence</th>
                     <th>Lift</th>
@@ -281,8 +196,7 @@
             <tbody>
                 {% for rule in apriori_rules %}
                 <tr>
-                    <td>{{ rule['antecedents'] }}</td>
-                    <td>{{ rule['consequents'] }}</td>
+                    <td>{{ rule['rule'] }}</td>
                     <td>{{ rule['support'] }}</td>
                     <td>{{ rule['confidence'] }}</td>
                     <td>{{ rule['lift'] }}</td>
@@ -290,14 +204,14 @@
                 {% endfor %}
             </tbody>
         </table>
-        <img src="{{ url_for('static', filename='Apriori_rules.png') }}" alt="Apriori Rules" class="img-fluid mt-4">
 
-        <h2 class="mt-5">FP-Growth Rules</h2>
-        <table class="table table-bordered">
-            <thead class="thead-dark">
+        <a name="fp-growth"></a>
+        <h2 id="fp-growth">FP-Growth Rules</h2>
+        <img src="{{ url_for('static', filename='FP_Growth_non_linear_rules.png') }}" alt="FP-Growth Rules Plot">
+        <table>
+            <thead>
                 <tr>
-                    <th>Antecedents</th>
-                    <th>Consequents</th>
+                    <th>Rule</th>
                     <th>Support</th>
                     <th>Confidence</th>
                     <th>Lift</th>
@@ -306,8 +220,7 @@
             <tbody>
                 {% for rule in fp_growth_rules %}
                 <tr>
-                    <td>{{ rule['antecedents'] }}</td>
-                    <td>{{ rule['consequents'] }}</td>
+                    <td>{{ rule['rule'] }}</td>
                     <td>{{ rule['support'] }}</td>
                     <td>{{ rule['confidence'] }}</td>
                     <td>{{ rule['lift'] }}</td>
@@ -315,10 +228,149 @@
                 {% endfor %}
             </tbody>
         </table>
-        <img src="{{ url_for('static', filename='FP-Growth_rules.png') }}" alt="FP-Growth Rules" class="img-fluid mt-4">
+
+        {% if frequency_features %}
+        <a name="frequency-domain"></a>
+        <h2 id="frequency">Frequency Domain Features</h2>
+        <img src="{{ url_for('static', filename='Apriori_frequency_rules.png') }}" alt="Frequency Domain Features Plot">
+        <img src="{{ url_for('static', filename='FP_Growth_frequency_rules.png') }}" alt="Frequency Domain Features Plot">
+        <table>
+            <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>VLF</th>
+                    <th>VLF_PCT</th>
+                    <th>LF</th>
+                    <th>LF_PCT</th>
+                    <th>LF_NU</th>
+                    <th>HF</th>
+                    <th>HF_PCT</th>
+                    <th>HF_NU</th>
+                    <th>TP</th>
+                    <th>LF_HF</th>
+                    <th>HF_LF</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feature in frequency_features %}
+                <tr>
+                    <td>{{ feature['UUID'] }}</td>
+                    <td>{{ feature['VLF'] }}</td>
+                    <td>{{ feature['VLF_PCT'] }}</td>
+                    <td>{{ feature['LF'] }}</td>
+                    <td>{{ feature['LF_PCT'] }}</td>
+                    <td>{{ feature['LF_NU'] }}</td>
+                    <td>{{ feature['HF'] }}</td>
+                    <td>{{ feature['HF_PCT'] }}</td>
+                    <td>{{ feature['HF_NU'] }}</td>
+                    <td>{{ feature['TP'] }}</td>
+                    <td>{{ feature['LF_HF'] }}</td>
+                    <td>{{ feature['HF_LF'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if time_features %}
+        <a name="time-domain"></a>
+        <h2 id="time">Time Domain Features</h2>
+        <img src="{{ url_for('static', filename='Apriori_time_rules.png') }}" alt="Frequency Domain Features Plot">
+        <img src="{{ url_for('static', filename='FP_Growth_time_rules.png') }}" alt="Frequency Domain Features Plot">
+        <table>
+            <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>MEAN_RR</th>
+                    <th>MEDIAN_RR</th>
+                    <th>SDRR</th>
+                    <th>RMSSD</th>
+                    <th>SDSD</th>
+                    <th>SDRR_RMSSD</th>
+                    <th>pNN25</th>
+                    <th>pNN50</th>
+                    <th>KURT</th>
+                    <th>SKEW</th>
+                    <th>MEAN_REL_RR</th>
+                    <th>MEDIAN_REL_RR</th>
+                    <th>SDRR_REL_RR</th>
+                    <th>RMSSD_REL_RR</th>
+                    <th>SDSD_REL_RR</th>
+                    <th>SDRR_RMSSD_REL_RR</th>
+                    <th>KURT_REL_RR</th>
+                    <th>SKEW_REL_RR</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feature in time_features %}
+                <tr>
+                    <td>{{ feature['UUID'] }}</td>
+                    <td>{{ feature['MEAN_RR'] }}</td>
+                    <td>{{ feature['MEDIAN_RR'] }}</td>
+                    <td>{{ feature['SDRR'] }}</td>
+                    <td>{{ feature['RMSSD'] }}</td>
+                    <td>{{ feature['SDSD'] }}</td>
+                    <td>{{ feature['SDRR_RMSSD'] }}</td>
+                    <td>{{ feature['pNN25'] }}</td>
+                    <td>{{ feature['pNN50'] }}</td>
+                    <td>{{ feature['KURT'] }}</td>
+                    <td>{{ feature['SKEW'] }}</td>
+                    <td>{{ feature['MEAN_REL_RR'] }}</td>
+                    <td>{{ feature['MEDIAN_REL_RR'] }}</td>
+                    <td>{{ feature['SDRR_REL_RR'] }}</td>
+                    <td>{{ feature['RMSSD_REL_RR'] }}</td>
+                    <td>{{ feature['SDSD_REL_RR'] }}</td>
+                    <td>{{ feature['SDRR_RMSSD_REL_RR'] }}</td>
+                    <td>{{ feature['KURT_REL_RR'] }}</td>
+                    <td>{{ feature['SKEW_REL_RR'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if periodic_patterns %}
+        <a name="periodic-patterns"></a>
+        <h2 id="periodic">Periodic Patterns</h2>
+        <img src="{{ url_for('static', filename='Apriori_non_linear_rules.png') }}" alt="Frequency Domain Features Plot">
+        <img src="{{ url_for('static', filename='FP_Growth_non_linear_rules.png') }}" alt="Frequency Domain Features Plot">
+        <table>
+            <thead>
+                <tr>
+                    <th>UUID</th>
+                    <th>Pattern</th>
+                    <th>Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pattern in periodic_patterns %}
+                <tr>
+                    <td>{{ pattern['UUID'] }}</td>
+                    <td>{{ pattern['Patterns'] | map(attribute='Pattern') | join(', ') }}</td>
+                    <td>{{ pattern['Patterns'] | map(attribute='Frequency') | join(', ') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
+
+    <script>
+        window.onscroll = function() {
+            var backToTopButton = document.querySelector('.back-to-top');
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 </body>
-</html> -->
+</html>
