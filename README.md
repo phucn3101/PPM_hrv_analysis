@@ -1,8 +1,8 @@
-# PPM HRV Analysis
+# Periodic Pattern Mining - Heart Rate Variability Analysis
 
 ## Project Description
 
-The PPM HRV Analysis project is designed to analyze Heart Rate Variability (HRV) data. It includes preprocessing steps, feature extraction, and periodic pattern mining using the Apriori and FP-Growth algorithms. The project provides insights into HRV data through time domain, frequency domain, and non-linear feature analyses.
+The Periodic Pattern Mining - Heart Rate Variability Analysis (PPM HRV Analysis) project is designed to analyze Heart Rate Variability (HRV) data. It includes preprocessing steps, feature extraction, and periodic pattern mining using the Apriori and FP-Growth algorithms. The project provides insights into HRV data through time domain, frequency domain, and non-linear feature analyses.
 
 ## Features
 
