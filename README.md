@@ -1,4 +1,4 @@
-# Periodic Pattern Mining - Heart Rate Variability Analysis
+# Periodic Pattern Mining - Heart Rate Variability Analysis - TDTU
 
 ## Project Description
 
